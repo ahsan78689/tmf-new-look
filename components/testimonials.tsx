@@ -78,6 +78,11 @@ const testimonials = [
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   useEffect(() => {
     if (!isAutoPlaying) return
@@ -101,7 +106,7 @@ export default function Testimonials() {
     setCurrentIndex(index)
   }
 
-  const currentTestimonial = testimonials[currentIndex]
+  const currentTestimonial = testimonials[isClient ? currentIndex : 0]
 
   return (
     <section className="py-20 bg-gray-50">
@@ -163,7 +168,7 @@ export default function Testimonials() {
                           key={index}
                           onClick={() => goToTestimonial(index)}
                           className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                            index === currentIndex
+                            isClient && index === currentIndex
                               ? "bg-gradient-to-r from-purple-600 to-blue-600"
                               : "bg-gray-300 hover:bg-gray-400"
                           }`}

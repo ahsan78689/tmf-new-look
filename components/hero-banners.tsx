@@ -93,6 +93,11 @@ const banners = [
 export default function HeroBanners() {
   const [currentBanner, setCurrentBanner] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   useEffect(() => {
     if (!isAutoPlaying) return
@@ -222,7 +227,7 @@ export default function HeroBanners() {
 
             {/* Floating Elements */}
             <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
-              {currentBanner + 1}
+              {isClient ? currentBanner + 1 : 1}
             </div>
           </div>
         </div>
@@ -234,7 +239,7 @@ export default function HeroBanners() {
               key={index}
               onClick={() => setCurrentBanner(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentBanner
+                isClient && index === currentBanner
                   ? "bg-gradient-to-r from-purple-600 to-blue-600 w-8"
                   : "bg-gray-300 hover:bg-gray-400"
               }`}

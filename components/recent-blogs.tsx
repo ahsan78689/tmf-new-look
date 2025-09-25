@@ -84,10 +84,15 @@ const blogPosts = [
 export default function RecentBlogs() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoScrolling, setIsAutoScrolling] = useState(true)
+  const [isClient, setIsClient] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const itemsPerView = 3
   const maxIndex = Math.max(0, blogPosts.length - itemsPerView)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   useEffect(() => {
     if (!isAutoScrolling) return
@@ -151,7 +156,7 @@ export default function RecentBlogs() {
           <div
             ref={scrollRef}
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }}
+            style={{ transform: isClient ? `translateX(-${currentIndex * (100 / itemsPerView)}%)` : 'translateX(0%)' }}
           >
             {blogPosts.map((post, index) => (
               <div key={post.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
@@ -233,7 +238,7 @@ export default function RecentBlogs() {
                 key={index}
                 onClick={() => goToSlide(index)}
                 className={`w-4 h-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg ${
-                  index === currentIndex
+                  isClient && index === currentIndex
                     ? "bg-gradient-to-r from-purple-600 to-blue-600 scale-110"
                     : "bg-gray-300 hover:bg-purple-300 hover:scale-105"
                 }`}
