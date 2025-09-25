@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { TrendingUp, ArrowRight, Play, Users, Target, Calendar, BarChart3 } from "lucide-react"
+import { TrendingUp, ArrowRight, Play, Users, Target, Calendar, ChartBar as BarChart3 } from "lucide-react"
 import GetStartedPopup from "@/components/get-started-popup"
 
 const banners = [
